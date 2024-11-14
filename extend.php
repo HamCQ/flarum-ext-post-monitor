@@ -13,10 +13,11 @@ namespace Hamcq\NewPostMinitor;
 use Flarum\Post\Event\Saving as PostSaving;
 use Flarum\User\Event\Registered as UserRegistered;
 
-
 use Flarum\Extend;
+use Flarum\User\Event\AvatarSaving;
+use Hamcq\NewPostMinitor\Listener\CheckAvatar;
 use Hamcq\NewPostMinitor\Listener\CheckPost;
-use Hamcq\NewPostMinitor\Listener\CheckUser;
+use Hamcq\NewPostMinitor\Listener\CheckRegister;
 
 return [
     (new Extend\Frontend('forum'))
@@ -29,5 +30,6 @@ return [
    
     (new Extend\Event())
         ->listen(PostSaving::class, CheckPost::class)
-        ->listen(UserRegistered::class, CheckUser::class),
+        ->listen(UserRegistered::class, CheckRegister::class)
+        ->listen(AvatarSaving::class, CheckAvatar::class),
 ];

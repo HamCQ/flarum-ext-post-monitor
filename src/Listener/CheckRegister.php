@@ -2,12 +2,9 @@
 
 namespace Hamcq\NewPostMinitor\Listener;
 use Flarum\Settings\SettingsRepositoryInterface;
-use Illuminate\Support\Arr;
 use Flarum\User\Event\Registered;
 
-use Exception;
-
-class CheckUser
+class CheckRegister
 {
 
      /**
@@ -33,7 +30,7 @@ class CheckUser
             return;
         }
 
-        if(strtotime($user->joined_at) - time() > 10){
+        if(strtotime($user->joined_at) - time() > 30){
             return;
         }
 
