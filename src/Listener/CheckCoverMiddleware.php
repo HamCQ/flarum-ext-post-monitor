@@ -60,8 +60,11 @@ class CheckCoverMiddleware implements MiddlewareInterface
         $url = $this->settings->get('hamcq.monitor_user_cover_robot_webhook');
         $avatar = $actor->avatar_url;
         $cover = app('flarum.config')["url"]."/assets/covers/".$actor->cover;
-        app("log")->info($cover);
-        
+        // app("log")->info($cover);
+        // todo: 第一次上传暂时获取不到
+        if(!$actor->cover){
+            return;
+        }
         $cardText = [
             "msgtype" =>"template_card",
             "template_card" =>[
