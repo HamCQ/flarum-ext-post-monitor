@@ -3,7 +3,7 @@
 namespace Hamcq\NewPostMinitor\Listener;
 use Flarum\Settings\SettingsRepositoryInterface;
 use Illuminate\Support\Arr;
-use Flarum\User\Event\Saving;
+use Flarum\User\Event\Registered;
 
 use Exception;
 
@@ -20,7 +20,7 @@ class CheckUser
         $this->settings = $settings;
     }
 
-    public function handle(Saving $event)
+    public function handle(Registered $event)
     { 
         $user = $event->user;
         // app('log')->info($user -> joined_at);
@@ -33,7 +33,7 @@ class CheckUser
             return;
         }
 
-        if(strtotime($user->joined_at) - time() > 300){
+        if(strtotime($user->joined_at) - time() > 10){
             return;
         }
 

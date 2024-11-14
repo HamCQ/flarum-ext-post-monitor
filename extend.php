@@ -11,7 +11,7 @@
 
 namespace Hamcq\NewPostMinitor;
 use Flarum\Post\Event\Saving as PostSaving;
-use Flarum\User\Event\Saving as UserSaving;
+use Flarum\User\Event\Registered as UserRegistered;
 
 
 use Flarum\Extend;
@@ -29,5 +29,5 @@ return [
    
     (new Extend\Event())
         ->listen(PostSaving::class, CheckPost::class)
-        ->listen(UserSaving::class, CheckUser::class),
+        ->listen(UserRegistered::class, CheckUser::class),
 ];
