@@ -38,13 +38,14 @@ class CheckAvatar
             return;
         }
         $url = $this->settings->get('hamcq.monitor_user_avatar_robot_webhook');
-
+        $avatar = $user->avatar_url;
+        app('log')->info($avatar);
         $cardText = [
             "msgtype" =>"template_card",
             "template_card" =>[
                 "card_type" =>"text_notice",
                 "source" =>[
-                    "icon_url" => $user->avatar_url,
+                    "icon_url" => $avatar,
                     "desc" => $user->username
                 ],
                 "main_title" =>[
