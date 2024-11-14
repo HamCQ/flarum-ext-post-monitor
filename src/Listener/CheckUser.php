@@ -53,8 +53,11 @@ class CheckUser
             return;
         }
         $content = sprintf("新用户注册 \n
-                >用户： [%s](%s)", 
-            $user->username, app('flarum.config')["url"]."/u/".$user->id);
+                >用户： [%s](%s)
+                >当前时间：%s", 
+            $user->username, 
+            app('flarum.config')["url"]."/u/".$user->id, 
+            date('Y-m-d H:i:s'));
         $url = $this->settings->get('hamcq.monitor_new_user_robot_webhook');
        
 
