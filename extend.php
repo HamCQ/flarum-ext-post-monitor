@@ -9,9 +9,14 @@
  * file that was distributed with this source code.
  */
 
-namespace Hamcq\\NewPostMinitor;
+namespace Hamcq\NewPostMinitor;
+use Flarum\Post\Event\Saving as PostSaving;
+use Flarum\User\Event\Saving as UserSaving;
+
 
 use Flarum\Extend;
+use Hamcq\NewPostMinitor\Listener\CheckPost;
+use Hamcq\NewPostMinitor\Listener\CheckUser;
 
 return [
     (new Extend\Frontend('forum'))
@@ -21,4 +26,8 @@ return [
         ->js(__DIR__.'/js/dist/admin.js')
         ->css(__DIR__.'/less/admin.less'),
     new Extend\Locales(__DIR__.'/locale'),
+   
+    (new Extend\Event())
+        ->listen(PostSaving::class, CheckPost::class)
+        ->listen(UserSaving::class, CheckUser::class),
 ];
