@@ -54,6 +54,8 @@ class CheckPost
             $limit = 1024;
         }
        
+        $post_location = app('flarum.config')["url"]."/d/".$post->discussion_id."/".$post->number;
+
         $content = sprintf("讨论标题： <font color=\"comment\">%s</font>
                 >相关用户： [%s](%s)
                 >内容摘要： <font color=\"comment\">%s</font>
@@ -63,10 +65,9 @@ class CheckPost
             $post->discussion->title, 
             $post->user->username, app('flarum.config')["url"]."/u/".$post->user->id,
             mb_substr($post->content, 0, $limit),
-            app('flarum.config')["url"]."/d/".$post->discussion_id."/".$post->number,
+            $post_location,
             date("Y-m-d H:i:s", time()));
         $url = $this->settings->get('hamcq.monitor_new_post_robot_webhook');
-       
 
         if ($content == "" || $url == "") {
             return;

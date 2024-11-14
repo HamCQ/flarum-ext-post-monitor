@@ -16,6 +16,7 @@ use Flarum\User\Event\Registered as UserRegistered;
 use Flarum\Extend;
 use Flarum\User\Event\AvatarSaving;
 use Hamcq\NewPostMinitor\Listener\CheckAvatar;
+use Hamcq\NewPostMinitor\Listener\CheckCoverMiddleware;
 use Hamcq\NewPostMinitor\Listener\CheckPost;
 use Hamcq\NewPostMinitor\Listener\CheckRegister;
 
@@ -27,9 +28,12 @@ return [
         ->js(__DIR__.'/js/dist/admin.js')
         ->css(__DIR__.'/less/admin.less'),
     new Extend\Locales(__DIR__.'/locale'),
+
+    (new Extend\Middleware('api'))
+        ->add(CheckCoverMiddleware::class),
    
     (new Extend\Event())
         ->listen(PostSaving::class, CheckPost::class)
         ->listen(UserRegistered::class, CheckRegister::class)
         ->listen(AvatarSaving::class, CheckAvatar::class),
-];
+    ];

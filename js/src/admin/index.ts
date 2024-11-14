@@ -41,4 +41,15 @@ app.initializers.add('hamcq-newpostmonitor', () => {
         setting: 'hamcq.monitor_user_avatar_robot_webhook',
         type: 'string',
       })
+      //
+      .registerSetting({
+        label: "监测开关",
+        setting: 'hamcq.monitor_switch_user_cover',
+        type: 'switch',
+      })
+      .registerSetting({
+        label: "监测用户背景页-机器人Webhook",
+        setting: 'hamcq.monitor_user_cover_robot_webhook',
+        type: 'string',
+      })
 });

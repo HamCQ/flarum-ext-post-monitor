@@ -39,42 +39,26 @@ class CheckAvatar
         }
         $url = $this->settings->get('hamcq.monitor_user_avatar_robot_webhook');
         $avatar = $user->avatar_url;
-        // app('log')->info($avatar);
-        // $cardText = [
-        //     "msgtype" =>"template_card",
-        //     "template_card" =>[
-        //         "card_type" =>"text_notice",
-        //         "source" =>[
-        //             "icon_url" => $avatar,
-        //             "desc" => $user->username
-        //         ],
-        //         "main_title" =>[
-        //             "title" => "用户修改头像",
-        //             "desc" => date("Y-m-d H:i:s")
-        //         ],
-        //         "card_action" => [
-        //             "type" => 1,
-        //             "url" => app('flarum.config')["url"]."/u/".$user->id
-        //         ]
-        
-        //     ]
-        // ];
-
-        $content = [
-            "msgtype" => "news",
-            "news" => [
-                "articles" => [
-                    [
-                        "title" => "用户修改头像",
-                        "description" => $user->username,
-                        "url" => app('flarum.config')["url"]."/u/".$user->id,
-                        "picurl" => $avatar
-                    ]
+        $cardText = [
+            "msgtype" =>"template_card",
+            "template_card" =>[
+                "card_type" =>"text_notice",
+                "source" =>[
+                    "icon_url" => $avatar,
+                    "desc" => $user->username
+                ],
+                "main_title" =>[
+                    "title" => "用户修改头像",
+                    "desc" => date("Y-m-d H:i:s")
+                ],
+                "card_action" => [
+                    "type" => 1,
+                    "url" => app('flarum.config')["url"]."/u/".$user->id
                 ]
             ]
         ];
 
         
-        resolve(Common::class)->send_post($url, $content);
+        resolve(Common::class)->send_post($url, $cardText);
     }
 }
