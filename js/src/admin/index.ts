@@ -10,6 +10,11 @@ app.initializers.add('hamcq-newpostmonitor', () => {
         type: 'switch',
       })
       .registerSetting({
+        label: "摘要内容截取长度",
+        setting: 'hamcq.monitor_switch_new_post_summary_length',
+        type: 'int',
+      })
+      .registerSetting({
           label: "监测新发内容-机器人Webhook",
           setting: 'hamcq.monitor_new_post_robot_webhook',
           type: 'string',

@@ -40,6 +40,7 @@ class CheckPost
     {
         $content = "";
         $url = "";
+        $limit = 0;
         // app("log")->info($post->type); //实际发布discussion 也会携带comment
 
         if (!$this->settings->get('hamcq.monitor_switch_new_post')) {
@@ -48,15 +49,19 @@ class CheckPost
         if ($this->settings->get('hamcq.monitor_new_post_robot_webhook') == '') {
             return;
         }
+        $limit = $this->settings->get('hamcq.monitor_switch_new_post_summary_length');
+        if($limit<=0){
+            $limit = 1024;
+        }
        
-        $content = sprintf("有用户发布新内容！辛苦管理员留意 (#^.^#) \n
-                >用户： [%s](%s)
-                >标题： %s
-                >摘要： %s
+        $content = sprintf("<font color=\"warning\">有用户发布新内容！</font>辛苦管理员留意 (#^.^#) \n
+                >相关用户： [%s](%s)
+                >讨论标题： <font color=\"comment\">%s</font>
+                >内容摘要： <font color=\"comment\">%s</font>
                 >链接： [点此查看](%s)", 
             $post->user->username, app('flarum.config')["url"]."/u/".$post->user->id,
             $post->discussion->title, 
-            mb_substr($post->content, 0, 1024),
+            mb_substr($post->content, 0, $limit),
             app('flarum.config')["url"]."/d/".$post->discussion_id."/".$post->number);
         $url = $this->settings->get('hamcq.monitor_new_post_robot_webhook');
        
