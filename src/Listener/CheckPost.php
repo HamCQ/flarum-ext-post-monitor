@@ -59,7 +59,7 @@ class CheckPost
                 >内容摘要： <font color=\"comment\">%s</font>
                 >链接： [点此查看](%s)
                 >当前时间： %s\n
-                <font color=\"warning\">有用户发布新内容！</font>辛苦管理员留意 (#^.^#)", 
+<font color=\"warning\">有用户发布新内容！</font>辛苦管理员留意 (#^.^#)", 
             $post->discussion->title, 
             $post->user->username, app('flarum.config')["url"]."/u/".$post->user->id,
             mb_substr($post->content, 0, $limit),

@@ -38,21 +38,27 @@ class CheckAvatar
             return;
         }
         $url = $this->settings->get('hamcq.monitor_user_avatar_robot_webhook');
-        $articles = [
-            [
-                "title" => "用户修改头像",
-                "description" => date("Y-m-d H:i:s"),
-                "url" => app('flarum.config')["url"]."/u/".$user->id,
-                "picurl" => $user->avatar_url
-            ]
-        ];
 
-        $data = [
-            "msgtype" => "news",
-            "news" => [
-                "articles" => $articles
+        $cardText = [
+            "msgtype" =>"template_card",
+            "template_card" =>[
+                "card_type" =>"text_notice",
+                "source" =>[
+                    "icon_url" => $user->avatar_url,
+                    "desc" => $user->username
+                ],
+                "main_title" =>[
+                    "title" => "用户修改头像",
+                    "desc" => date("Y-m-d H:i:s")
+                ],
+                "card_action" => [
+                    "type" => 1,
+                    "url" => app('flarum.config')["url"]."/u/".$user->id
+                ]
+        
             ]
         ];
-        resolve(Common::class)->send_post($url, $data);
+        
+        resolve(Common::class)->send_post($url, $cardText);
     }
 }
