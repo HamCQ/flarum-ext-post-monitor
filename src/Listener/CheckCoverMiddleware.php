@@ -38,9 +38,7 @@ class CheckCoverMiddleware implements MiddlewareInterface
                     return $handler->handle($request);
                 }
 
-                $actor = RequestUtil::getActor($request);
-
-                $this->monitorUserCover($actor,$request);
+                $this->monitorUserCover($request);
 
                 return $handler->handle($request);
 
@@ -57,10 +55,13 @@ class CheckCoverMiddleware implements MiddlewareInterface
         return $handler->handle($request);
     }
 
-    public function monitorUserCover($actor, $request){
+    public function monitorUserCover($request){
+        $actor = RequestUtil::getActor($request);
         $url = $this->settings->get('hamcq.monitor_user_cover_robot_webhook');
         $avatar = $actor->avatar_url;
         $cover = app('flarum.config')["url"]."/assets/covers/".$actor->cover;
+        app("log")->info($cover);
+        
         $cardText = [
             "msgtype" =>"template_card",
             "template_card" =>[
