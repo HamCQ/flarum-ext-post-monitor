@@ -57,15 +57,15 @@ class CheckPost
         $post_location = app('flarum.config')["url"]."/d/".$post->discussion_id."/".$post->number;
 
         $content = sprintf("讨论标题： <font color=\"comment\">%s</font>
+                >链接： [%s](%s)
                 >相关用户： [%s](%s)
                 >内容摘要： <font color=\"comment\">%s</font>
-                >链接： [%s](%s)
                 >当前时间： %s\n
 <font color=\"warning\">有用户发布新内容！</font>辛苦管理员留意 (#^.^#)", 
             $post->discussion->title, 
+            $post_location,$post_location,
             $post->user->username, app('flarum.config')["url"]."/u/".$post->user->id,
             mb_substr($post->content, 0, $limit),
-            $post_location,$post_location,
             date("Y-m-d H:i:s", time()));
         $url = $this->settings->get('hamcq.monitor_new_post_robot_webhook');
 

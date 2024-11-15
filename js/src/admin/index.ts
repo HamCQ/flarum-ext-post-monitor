@@ -52,4 +52,15 @@ app.initializers.add('hamcq-newpostmonitor', () => {
         setting: 'hamcq.monitor_user_cover_robot_webhook',
         type: 'string',
       })
+      //
+      .registerSetting({
+        label: "监测开关",
+        setting: 'hamcq.monitor_switch_user_bio',
+        type: 'switch',
+      })
+      .registerSetting({
+        label: "监测用户签名-机器人Webhook",
+        setting: 'hamcq.monitor_user_bio_robot_webhook',
+        type: 'string',
+      })
 });
